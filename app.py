@@ -101,3 +101,9 @@ elif option == "Webcam Stream":
 
     # Start the webcam stream
     webrtc_streamer(key="example", video_processor_factory=VideoProcessor)
+
+import asyncio
+
+# Ensure a running event loop is available for async tasks
+if not asyncio.get_event_loop().is_running():
+    asyncio.set_event_loop(asyncio.new_event_loop())
