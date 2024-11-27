@@ -3,6 +3,12 @@ import streamlit as st
 import numpy as np
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 
+import asyncio
+
+# Ensure a running event loop is available for async tasks
+if not asyncio.get_event_loop().is_running():
+    asyncio.set_event_loop(asyncio.new_event_loop())
+    
 # Load Haar cascades
 face_classifier = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 eye_classifier = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_eye.xml")
@@ -102,8 +108,3 @@ elif option == "Webcam Stream":
     # Start the webcam stream
     webrtc_streamer(key="example", video_processor_factory=VideoProcessor)
 
-import asyncio
-
-# Ensure a running event loop is available for async tasks
-if not asyncio.get_event_loop().is_running():
-    asyncio.set_event_loop(asyncio.new_event_loop())
